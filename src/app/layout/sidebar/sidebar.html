@@ -1,0 +1,96 @@
+<aside class="sidebar" [class.active]="isSidebarActive" #sidebar>
+
+  <div class="sidebar-info">
+
+    <figure class="avatar-box">
+      <img src="images/myphoto-removebg-preview.png" alt="Richard hanrick" width="80">
+    </figure>
+
+    <div class="info-content">
+      <h1 class="name" title="mostafa Hamed">Mostafa Hamed</h1>
+      <p class="title">Front-End & UI / UX</p>
+    </div>
+
+    <button class="info_more-btn" (click)="toggleSidebar()">
+      <span>Show Contacts</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+  </div>
+
+  <div class="sidebar-info_more">
+
+    <div class="separator"></div>
+
+    <ul class="contacts-list">
+
+      <li class="contact-item">
+        <div class="icon-box">
+          <i class="fa-regular fa-envelope"></i>
+        </div>
+        <div class="contact-info">
+          <p class="contact-title">Email</p>
+          <a href="mailto:mostafahamed3003@gmail.com" class="contact-link">mostafahamed3003@gmail.com</a>
+        </div>
+      </li>
+
+      <li class="contact-item">
+        <div class="icon-box">
+          <i class="fa-solid fa-mobile-screen"></i>
+        </div>
+        <div class="contact-info">
+          <p class="contact-title">Phone</p>
+          <a href="tel:+201030588154" class="contact-link">01030588154</a>
+        </div>
+      </li>
+
+      <li class="contact-item">
+        <div class="icon-box">
+          <i class="fa-regular fa-calendar"></i>
+        </div>
+        <div class="contact-info">
+          <p class="contact-title">Birthday</p>
+          <time datetime="2003-06-02">Jun , 2, 2003</time>
+        </div>
+      </li>
+
+      <li class="contact-item">
+        <div class="icon-box">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="contact-info">
+          <p class="contact-title">Location</p>
+          <address>Tala City, Menoufia, Egypt</address>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="separator"></div>
+
+    <ul class="social-list">
+      <li class="social-item">
+        <a href="https://www.facebook.com/profile.php?id=100009025482597" target="_blank" class="social-link">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+      </li>
+      <li class="social-item">
+        <a href="https://www.behance.net/engmostafahamed" target="_blank" class="social-link">
+          <i class="fa-brands fa-behance"></i>
+        </a>
+      </li>
+      <li class="social-item">
+        <a href="https://github.com/Mostafa7ahmed" target="_blank" class="social-link">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li class="social-item">
+        <a href="http://www.linkedin.com/in/mostafa-hamed300" target="_blank" class="social-link">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+</aside>
