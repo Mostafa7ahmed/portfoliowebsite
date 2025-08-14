@@ -2150,6 +2150,11 @@ textarea.form-input::-webkit-resizer {
     align-items: stretch;
     gap: 25px;
   }
+  .activeScroll{
+    scrollbar-width: none;
+    height: 500px;
+    overflow: scroll;
+  }
 
   .main-content {
     min-width: 75%;

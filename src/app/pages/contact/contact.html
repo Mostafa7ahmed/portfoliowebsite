@@ -1,1 +1,43 @@
-<p>contact works!</p>
+     <article class="contact active activeScroll" data-page="contact">
+
+          <header>
+            <h2 class="h2 article-title">Contact</h2>
+          </header>
+
+          <section class="mapbox" data-mapbox>
+            <figure>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1796.815172624279!2d30.941681651901387!3d30.677293711610822!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7d289c27d61af%3A0x519f8a7bb909158a!2z2KrZhNin2Iwg2YXYr9mK2YbYqSDYqtmE2KfYjCDZhdix2YPYsiDYqtmE2KfYjCDZhdit2KfZgdi42Kkg2KfZhNmF2YbZiNmB2YrYqQ!5e0!3m2!1sar!2seg!4v1713030151197!5m2!1sar!2seg"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </figure>
+          </section>
+
+          <section class="contact-form">
+
+            <h3 class="h3 form-title">Contact Form</h3>
+
+            <form >
+
+              <div class="input-wrapper">
+                <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Full name" required
+                  data-form-input>
+
+                <input type="email" name="email" class="form-input" placeholder="Email address" required
+                  data-form-input>
+              </div>
+
+              <textarea name="message" class="form-input" placeholder="Your Message" required
+                data-form-input></textarea>
+              <div class="h-captcha" data-captcha="true" required data-form-input></div>
+
+              <button class="form-btn" type="submit" disabled data-form-btn>
+<i class="fa-regular fa-paper-plane"></i>
+                <span>Send Message</span>
+              </button>
+
+            </form>
+
+          </section>
+
+        </article>
