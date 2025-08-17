@@ -1,19 +1,29 @@
 <nav class="navbar">
   <ul class="navbar-list">
     <li class="navbar-item">
-      <button class="navbar-link" [class.active]="activePage === 'about'" (click)="setPage('about')">About</button>
+      <a class="navbar-link" routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        About
+      </a>
     </li>
     <li class="navbar-item">
-      <button class="navbar-link" [class.active]="activePage === 'resume'" (click)="setPage('resume')">Resume</button>
+      <a class="navbar-link" routerLink="/resume" routerLinkActive="active">
+        Resume
+      </a>
     </li>
     <li class="navbar-item">
-      <button class="navbar-link" [class.active]="activePage === 'portfolio'" (click)="setPage('portfolio')">Portfolio</button>
+      <a class="navbar-link" routerLink="/portfolio" routerLinkActive="active">
+        Portfolio
+      </a>
     </li>
     <li class="navbar-item">
-      <button class="navbar-link" [class.active]="activePage === 'certificates'" (click)="setPage('certificates')">Certificates</button>
+      <a class="navbar-link" routerLink="/certificates" routerLinkActive="active">
+        Certificates
+      </a>
     </li>
     <li class="navbar-item">
-      <button class="navbar-link" [class.active]="activePage === 'contact'" (click)="setPage('contact')">Contact</button>
+      <a class="navbar-link" routerLink="/contact" routerLinkActive="active">
+        Contact
+      </a>
     </li>
   </ul>
 </nav>

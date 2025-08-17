@@ -1,0 +1,77 @@
+<div class="page">
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="card">
+    <div class="brand">
+      <span class="logo">🚀</span>
+      <h1 class="app">Striked</h1>
+    </div>
+
+    <h2 class="title">Login with your credentials</h2>
+    <p class="subtitle">Glad to have you back!</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <label class="label">Email</label>
+      <div class="field">
+        <input class="input"
+               type="email"
+               placeholder="name@example.com"
+               formControlName="email" />
+        <button type="button" class="clear" *ngIf="form.controls.email.value"
+                (click)="form.controls.email.setValue('')" aria-label="clear email">×</button>
+      </div>
+      <div class="hint error" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+        Please enter a valid email.
+      </div>
+
+      <label class="label">Password</label>
+      <div class="field">
+        <input class="input"
+               [type]="hide() ? 'password' : 'text'"
+               placeholder="••••••••"
+               formControlName="password" />
+        <button type="button" class="eye" (click)="toggleVisibility()" aria-label="toggle password visibility">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="1.5"/>
+            <circle [attr.fill]="hide() ? 'currentColor' : 'none'"
+                    cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+      </div>
+
+
+      <button class="btn-grad d-flex justify-content-center" type="submit" [disabled]="!canSubmit()">
+        <span *ngIf="!loading()">Sign in</span>
+        <span *ngIf="loading()" class="spinner"></span>
+      </button>
+
+      <div class="or">
+        <span></span><em>OR</em><span></span>
+      </div>
+
+      <div class="providers">
+        <button type="button" class="provider">
+          <span class="ico g">
+            <!-- Google "G" -->
+            <svg viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.8 32.9 30.1 36 24 36c-6.6 0-12.2-4.5-14.1-10.6S9 13 15 10.3 28 9.7 33.1 14l6-6C34.6 2.7 29.5 1 24 1 11.8 1 1.7 10.3 0.2 22.3S7.1 45 19.1 47.8 44.7 41 47.5 29.1c.3-1.5.5-3 .5-4.6 0-1.7-.2-3.1-.5-4.5z" fill="currentColor"/></svg>
+          </span>
+          Sign in with Google
+        </button>
+
+        <button type="button" class="provider">
+          <span class="ico a">
+            <!-- Apple -->
+            <svg viewBox="0 0 24 24"><path d="M16.365 1.43c0 1.14-.45 2.21-1.19 3.02-.76.83-2.01 1.49-3.08 1.43-.12-1.09.47-2.26 1.2-3.03.8-.85 2.19-1.49 3.07-1.42zM20.5 17.37c-.53 1.23-.79 1.78-1.48 2.88-1.1 1.72-2.65 3.86-4.58 3.88-1.07.01-1.81-.7-3.07-.7-1.27 0-2.06.69-3.14.72-1.93.06-3.41-1.86-4.5-3.58-2.46-3.83-2.72-8.34-1.2-10.72 1.09-1.74 2.82-2.77 4.46-2.77 1.66 0 2.71.74 4.1.74 1.37 0 2.21-.74 4.09-.74 1.5 0 3.08.82 4.17 2.24-3.67 2.02-3.07 7.28.15 8.85z" fill="currentColor"/></svg>
+          </span>
+          Sign in with Apple
+        </button>
+
+      
+      </div>
+
+      <div class="hint error center" *ngIf="errorMsg()">{{ errorMsg() }}</div>
+    </form>
+  </div>
+</div>

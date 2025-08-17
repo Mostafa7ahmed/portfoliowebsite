@@ -1,14 +1,3 @@
-  <main>
-    <app-sidebar></app-sidebar>
 
-    <div class="main-content">
-      <app-navbar (pageChange)="currentPage = $event"></app-navbar>
 
-      <!-- Conditional Pages -->
-      <app-about *ngIf="currentPage === 'about'"></app-about>
-      <app-resume *ngIf="currentPage === 'resume'"></app-resume>
-      <app-portfolio *ngIf="currentPage === 'portfolio'"></app-portfolio>
-      <app-certificates *ngIf="currentPage === 'certificates'"></app-certificates>
-      <app-contact *ngIf="currentPage === 'contact'"></app-contact>
-    </div>
-  </main>
+<router-outlet></router-outlet>

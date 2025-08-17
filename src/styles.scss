@@ -1935,7 +1935,7 @@ textarea.form-input::-webkit-resizer {
 
   .project-list,
   .blog-posts-list {
-    grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
   }
 
 

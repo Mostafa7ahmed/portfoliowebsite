@@ -1,0 +1,320 @@
+:host {
+    display: block;
+    height: 100dvh;
+}
+
+.page {
+    position: relative;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(60% 40% at 80% 80%, #0d1b1f 0%, #0a0f12 60%, #090c10 100%);
+    color: #cfd6dc;
+    overflow: hidden;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* faint floating dots */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .25;
+
+    span {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #9ec6a8;
+        border-radius: 50%;
+        filter: blur(.5px);
+        animation: drift 18s linear infinite;
+    }
+
+    span:nth-child(1) {
+        top: 12%;
+        left: 20%;
+        animation-duration: 25s;
+    }
+
+    span:nth-child(2) {
+        top: 30%;
+        left: 75%;
+    }
+
+    span:nth-child(3) {
+        top: 65%;
+        left: 15%;
+        animation-duration: 22s;
+    }
+
+    span:nth-child(4) {
+        top: 80%;
+        left: 60%;
+        animation-duration: 28s;
+    }
+
+    span:nth-child(5) {
+        top: 45%;
+        left: 50%;
+        animation-duration: 24s;
+    }
+}
+
+@keyframes drift {
+    from {
+        transform: translateY(0)    ;
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+}
+
+    to {
+        transform: translateY(-40px)
+    }
+}
+
+.card {
+    width: min(420px, 92vw);
+    background: #12151a;
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .02);
+    padding: 28px 28px 26px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    justify-content: center;
+
+    .logo {
+        font-size: 22px
+    }
+
+    .app {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: .3px;
+        color: #eaeff3
+    }
+}
+
+.title {
+    text-align: center;
+    font-size: 16px;
+    margin: 10px 0 2px;
+    color: #eaeff3
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 12px;
+    margin: 0 0 18px;
+    color: #8b9199
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: #8b9199;
+    margin-top: 8px
+}
+
+.field {
+    position: relative;
+
+    .input {
+        width: 100%;
+        background: #0e1216;
+        border: 1px solid rgba(255, 255, 255, .07);
+        border-radius: 10px;
+        padding: 12px 40px 12px 12px;
+        color: #e6edf3;
+        outline: none;
+        transition: border .2s, box-shadow .2s, background .2s;
+
+        &::placeholder {
+            color: #5b6772
+        }
+
+        &:focus {
+            border-color: rgba(88, 237, 170, .6);
+            box-shadow: 0 0 0 3px rgba(88, 237, 170, .15);
+            background: #0c1014;
+        }
+    }
+
+    .clear,
+    .eye {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 8px;
+        border: 0;
+        background: transparent;
+        color: #93a0aa;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+
+        &:hover {
+            background: rgba(255, 255, 255, .05);
+            color: #dbe2e8
+        }
+    }
+}
+
+.row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -4px;
+}
+
+.link {
+    color: #9be3b9;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.btn-grad {
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #0a1013;
+    letter-spacing: .3px;
+    background: linear-gradient(90deg, #3ddc97 0%, #f3c969 100%);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .2), 0 8px 20px rgba(61, 220, 151, .2);
+    transition: filter .2s, transform .03s;
+}
+
+.btn-grad:disabled {
+    filter: grayscale(.5) brightness(.8);
+    cursor: not-allowed;
+}
+
+.btn-grad:active {
+    transform: translateY(1px);
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, .35);
+    border-top-color: rgba(0, 0, 0, .75);
+    display: inline-block;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.or {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 2px;
+    color: #707b86;
+    font-size: 12px;
+
+    span {
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, .08)
+    }
+
+    em {
+        font-style: normal;
+    }
+}
+
+.providers {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+
+    .provider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        background: #0f1418;
+        border: 1px solid rgba(255, 255, 255, .07);
+        border-radius: 10px;
+        padding: 10px 12px;
+        color: #d7e0e6;
+        cursor: pointer;
+        transition: border .2s, background .2s;
+        font-size: 13px;
+        justify-content: center;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, .14);
+            background: #0e1317;
+        }
+
+        .ico {
+            display: grid;
+            place-items: center;
+            width: 18px;
+            height: 18px;
+        }
+
+        .g {
+            color: #e37400
+        }
+
+        .a {
+            color: #e8e8e8
+        }
+
+        .f {
+            color: #4c84ff
+        }
+
+        .d {
+            color: #8ba3ff
+        }
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #8b9199;
+}
+
+.hint.error {
+    color: #ff9191;
+    font-size: 12px;
+    margin-top: 4px
+}
+
+.center {
+    text-align: center
+}
