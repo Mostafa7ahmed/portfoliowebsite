@@ -37,13 +37,11 @@ export const routes: Routes = [
     ]
   },
 
-  // Auth layout (صفحات زي login لوحدها)
     {
     path: 'login',
     loadComponent: () =>
       import('./Admin/login/login').then(m => m.Login),
   },
 
-  // Wildcard
   { path: '**', redirectTo: 'about' }
 ];
