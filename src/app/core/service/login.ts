@@ -1,21 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../env/environment';
+import { IDecode } from '../interface/idecode';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Login {
-    private baseUrl = 'https://your-api.com/auth'; // 🔹 غيّر اللينك حسب الـ API بتاعك
+export class LoginService {
+  private baseUrl = `${environment.baseUrl}user/session`;
 
   constructor(private http: HttpClient) { }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
+    return this.http.post(this.baseUrl, credentials);
   }
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {
@@ -24,9 +28,28 @@ export class Login {
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);
+
+    const decoded = this.decodeToken(token);
+    if (decoded) {
+      localStorage.setItem('user', JSON.stringify(decoded));
+    }
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  decodeToken(token: string): IDecode | null {
+    try {
+      return jwtDecode<IDecode>(token);
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
+  }
+
+  getUser(): IDecode | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) as IDecode : null;
   }
 }

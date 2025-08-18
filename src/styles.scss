@@ -235,6 +235,8 @@ article {
 article.active {
   display: block;
   animation: fade 0.5s ease backwards;
+  padding-left: 20px;
+
 }
 
 @keyframes fade {
@@ -2152,7 +2154,7 @@ textarea.form-input::-webkit-resizer {
   }
   .activeScroll{
     scrollbar-width: none;
-    height: 500px;
+    height: 85vh;
     overflow: scroll;
   }
 

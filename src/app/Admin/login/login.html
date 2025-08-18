@@ -42,7 +42,7 @@
       </div>
 
 
-      <button class="btn-grad d-flex justify-content-center" type="submit" [disabled]="!canSubmit()">
+      <button class="btn-grad d-flex justify-content-center" type="submit" [disabled]="!form.valid">
         <span *ngIf="!loading()">Sign in</span>
         <span *ngIf="loading()" class="spinner"></span>
       </button>
