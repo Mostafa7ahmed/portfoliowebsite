@@ -1,0 +1,56 @@
+<section class="timeline">
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="title-wrapper">
+            <div class="icon-box">
+                <i class="fa-solid fa-book"></i>
+            </div>
+            <h3 class="h3">Experience</h3>
+        </div>
+        <a class="btn hoverbtn" (click)="openPopup()">Add Experience </a>
+    </div>
+
+    <ol class="timeline-list">
+        <li class="timeline-item" *ngFor="let exp of experiences">
+            <div class="d-flex justify-content-between align-items-start">
+                <h4 class="h4 timeline-item-title mb-0">{{ exp.title }}</h4>
+                <span class="d-flex align-items-center gap-4">{{exp.date}} <span class="iconDelete icon text-white"><i class="fa-regular fa-trash-can"></i></span></span>
+            </div>
+            <p class="timeline-text">{{ exp.description }}</p>
+        </li>
+    </ol>
+</section>
+
+
+<div class="popup-backdrop" *ngIf="isOpen">
+  <div class="popup">
+    <div class="popup-header">
+      <h3>Add Experience</h3>
+      <button class="close-btn" (click)="closePopup()">×</button>
+    </div>
+
+    <form class="popup-body" [formGroup]="formService">
+      <label>Job Title</label>
+      <input type="text" formControlName="title" placeholder="Enter job title" />
+
+      <label>Position</label>
+      <input type="text" formControlName="position" placeholder="Enter position" />
+
+      <label>Company</label>
+      <input type="text" formControlName="company" placeholder="Enter company name" />
+
+      <label>Description</label>
+      <textarea formControlName="description" rows="3" placeholder="Enter description"></textarea>
+
+      <label>From</label>
+      <input type="date" formControlName="from" />
+
+      <label>To</label>
+      <input type="date" formControlName="to" />
+    </form>
+
+    <div class="popup-footer">
+      <button class="save-btn" (click)="save()">Done</button>
+    </div>
+  </div>
+</div>

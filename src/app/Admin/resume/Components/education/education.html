@@ -1,0 +1,62 @@
+<section class="timeline">
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="title-wrapper">
+      <div class="icon-box">
+        <i class="fa-solid fa-book"></i>
+      </div>
+      <h3 class="h3">Education</h3>
+    </div>
+    <a class="btn hoverbtn"  (click)="openPopup()">Add Education </a>
+  </div>
+
+  <ol class="timeline-list">
+    <li class="timeline-item">
+    
+      <div class="d-flex justify-content-between align-items-start">
+        <h4 class="h4 timeline-item-title mb-0">
+          Menoufia University, Faculty Of Science Department Computer Science
+        </h4>
+        <span class="d-flex align-items-center gap-4">October 2021 — July 2025 <span class="iconDelete icon text-white"><i class="fa-regular fa-trash-can"></i></span></span>
+        
+      </div>
+      <p class="timeline-text">
+        Studying algorithms, data structures, and programming in various languages, with a focus on
+        building scalable applications and understanding computer science principles.
+      </p>
+      
+    </li>
+  </ol>
+</section>
+
+<div class="popup-backdrop" *ngIf="isOpen">
+  <div class="popup">
+    <div class="popup-header">
+      <h3>Add Education</h3>
+      <button class="close-btn" (click)="closePopup()">×</button>
+    </div>
+
+    <form class="popup-body" [formGroup]="formService">
+      <label>Job Title</label>
+      <input type="text" formControlName="title" placeholder="Enter job title" />
+
+      <label>Position</label>
+      <input type="text" formControlName="position" placeholder="Enter position" />
+
+      <label>Company</label>
+      <input type="text" formControlName="company" placeholder="Enter company name" />
+
+      <label>Description</label>
+      <textarea formControlName="description" rows="3" placeholder="Enter description"></textarea>
+
+      <label>From</label>
+      <input type="date" formControlName="from" />
+
+      <label>To</label>
+      <input type="date" formControlName="to" />
+    </form>
+
+    <div class="popup-footer">
+      <button class="save-btn" (click)="save()">Done</button>
+    </div>
+  </div>
+</div>
