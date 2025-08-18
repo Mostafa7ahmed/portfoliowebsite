@@ -1,0 +1,44 @@
+<section class="service">
+  <header class="d-flex justify-content-between align-items-center">
+    <h2 class="h2 article-title">Skills</h2>
+    <a class="btn hoverbtn" (click)="openPopup()"> Add Skill </a>
+  </header>
+</section>
+
+<div class="popup-backdrop" *ngIf="isOpen">
+  <div class="popup">
+    <div class="popup-header">
+      <h3>Add Skill</h3>
+      <button class="close-btn" (click)="closePopup()">×</button>
+    </div>
+
+    <form class="popup-body" [formGroup]="formService">
+      <!-- Upload Box -->
+      <div class="upload-box" (click)="triggerFileInput()" [ngClass]="{ 'has-image': previewUrl }">
+        <ng-container *ngIf="previewUrl; else placeholder">
+          <img [src]="previewUrl" alt="Preview" class="preview-img" />
+        </ng-container>
+        <ng-template #placeholder>
+          <div class="d-flex justify-content-center align-items-center gap-3">
+            <i class="fa fa-image"></i>
+            <span>Upload course photo</span>
+          </div>
+        </ng-template>
+      </div>
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
+
+      <!-- Name -->
+      <label>Name Skill</label>
+      <input type="text" formControlName="name" placeholder="Enter Skill Name" />
+
+        <div class="checkbox-wrapper">
+        <input type="checkbox" id="tech" formControlName="tech" />
+        <label for="tech" class="mb-0">Is Technical Skill?</label>
+        </div>
+    </form>
+
+    <div class="popup-footer">
+      <button class="save-btn" (click)="save()">Done</button>
+    </div>
+  </div>
+</div>

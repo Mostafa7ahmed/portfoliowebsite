@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const headersInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('UserAuth');
+  const token = localStorage.getItem('token');
 
   if (req.url.includes('/login') || req.url.includes('/register')) {
     return next(req);
