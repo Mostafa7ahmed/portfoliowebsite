@@ -1,24 +1,29 @@
 <section class="timeline">
 
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="title-wrapper">
-            <div class="icon-box">
-                <i class="fa-solid fa-book"></i>
-            </div>
-            <h3 class="h3">Experience</h3>
-        </div>
-        <a class="btn hoverbtn" (click)="openPopup()">Add Experience </a>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="title-wrapper">
+      <div class="icon-box">
+        <i class="fa-solid fa-book"></i>
+      </div>
+      <h3 class="h3">Experience</h3>
     </div>
+    <a class="btn hoverbtn" (click)="openPopup()">Add Experience </a>
+  </div>
 
-    <ol class="timeline-list">
-        <li class="timeline-item" *ngFor="let exp of experiences">
-            <div class="d-flex justify-content-between align-items-start">
-                <h4 class="h4 timeline-item-title mb-0">{{ exp.title }}</h4>
-                <span class="d-flex align-items-center gap-4">{{exp.date}} <span class="iconDelete icon text-white"><i class="fa-regular fa-trash-can"></i></span></span>
-            </div>
-            <p class="timeline-text">{{ exp.description }}</p>
-        </li>
-    </ol>
+  <ol class="timeline-list">
+    <li class="timeline-item" *ngFor="let exp of experiences()">
+      <div class="d-flex justify-content-between align-items-start">
+        <h4 class="h4 timeline-item-title mb-0">{{ exp.company }} - ( {{ exp.position }})</h4>
+        <span class="d-flex align-items-center gap-4">
+          {{ exp.from | date:'MMM yyyy' }} — {{ exp.to | date:'MMM yyyy' }}
+          <span class="iconDelete icon text-white" (click)="deleteExperience(exp.id)">
+            <i class="fa-regular fa-trash-can"></i>
+          </span>
+        </span>
+      </div>
+      <p class="timeline-text">{{ exp.description }}</p>
+    </li>
+  </ol>
 </section>
 
 

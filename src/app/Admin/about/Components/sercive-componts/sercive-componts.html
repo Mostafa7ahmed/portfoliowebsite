@@ -1,91 +1,48 @@
+<section class="service">
 
-  <section class="service">
+  <header class="d-flex justify-content-between align-items-center">
+    <h2 class="h2 article-title">Service</h2>
+    <a class="btn hoverbtn" (click)="openPopup()">
+      Add Service
+    </a>
+  </header>
 
-    <header class="d-flex justify-content-between align-items-center">
-      <h2 class="h2 article-title">Service</h2>
-       <a  class="btn hoverbtn"  (click)="openPopup()">
-        Add Service
-      </a>
-    </header>
-    <ul class="service-list">
+  <!-- لو في لودينج -->
+  <div *ngIf="loading()">Loading...</div>
 
-      <li class="service-item position-relative">
-         
-        <div class="iconDelete icon text-white">
-            <i class="fa-regular fa-trash-can"></i>
-        </div>
-        <div class="service-icon-box">
-          <img src="images/icon-dev.svg" alt="Web development icon" width="40">
-        </div>
+  <!-- لو مفيش خدمات -->
+  <div *ngIf="!loading() && services().length === 0">
+        <h2 class="h3 article-title text-center">No services found.</h2>
 
-        <div class="service-content-box">
-          <h4 class="h4 service-item-title">Front-End Developer</h4>
+  </div>
 
-          <p class="service-item-text">
-            High-quality development of sites at the professional level.
-          </p>
-        </div>
-
-      </li>
-        <li class="service-item position-relative">
-         
-        <div class="iconDelete icon text-white">
-            <i class="fa-regular fa-trash-can"></i>
-        </div>
-        <div class="service-icon-box">
-          <img src="images/icon-dev.svg" alt="Web development icon" width="40">
-        </div>
-
-        <div class="service-content-box">
-          <h4 class="h4 service-item-title">Front-End Developer</h4>
-
-          <p class="service-item-text">
-            High-quality development of sites at the professional level.
-          </p>
-        </div>
-
-      </li>
-            <li class="service-item position-relative">
-         
-        <div class="iconDelete icon text-white">
-            <i class="fa-regular fa-trash-can"></i>
-        </div>
-        <div class="service-icon-box">
-          <img src="images/icon-dev.svg" alt="Web development icon" width="40">
-        </div>
-
-        <div class="service-content-box">
-          <h4 class="h4 service-item-title">Front-End Developer</h4>
-
-          <p class="service-item-text">
-            High-quality development of sites at the professional level.
-          </p>
-        </div>
-
-      </li>
-            <li class="service-item position-relative">
-         
-        <div class="iconDelete icon text-white">
-            <i class="fa-regular fa-trash-can"></i>
-        </div>
-        <div class="service-icon-box">
-          <img src="images/icon-dev.svg" alt="Web development icon" width="40">
-        </div>
-
-        <div class="service-content-box">
-          <h4 class="h4 service-item-title">Front-End Developer</h4>
-
-          <p class="service-item-text">
-            High-quality development of sites at the professional level.
-          </p>
-        </div>
-
-      </li>
+  <!-- عرض الخدمات -->
+  <ul class="service-list" *ngIf="!loading() && services().length > 0">
+    <li class="service-item position-relative" *ngFor="let service of services()">
       
-    </ul>
+      <!-- زرار الحذف -->
+      <div class="iconDelete icon text-white" (click)="deleteService(service.id)">
+        <i class="fa-regular fa-trash-can"></i>
+      </div>
 
-  </section>
+      <!-- الأيقونة -->
+      <div class="service-icon-box">
+        <!-- لو عندك صورة جاية من الـ API -->
+        <img [src]="'images/icon-dev.svg'" alt="service icon" width="40">
+      </div>
 
+      <!-- التفاصيل -->
+      <div class="service-content-box">
+        <h4 class="h4 service-item-title">{{ service.title }}</h4>
+        <p class="service-item-text">
+          {{ service.description }}
+        </p>
+      </div>
+
+    </li>
+  </ul>
+
+</section>
 
   
 <div class="popup-backdrop" *ngIf="isOpen">

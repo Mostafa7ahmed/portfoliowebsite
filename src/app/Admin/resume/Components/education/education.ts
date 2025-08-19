@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceAPI } from '../../../../core/service/service-api';
+import { EducationAPI } from '../../../../core/service/education-api';
+import { IEducation } from '../../../../core/interface/ieducation';
 @Component({
   selector: 'app-education',
   imports: [CommonModule, ReactiveFormsModule],
@@ -9,14 +11,13 @@ import { ServiceAPI } from '../../../../core/service/service-api';
   styleUrl: './education.scss'
 })
 export class Education {
-  formService: FormGroup;
+  formEducation: FormGroup;
   isOpen = false;
-
-  constructor(private fb: FormBuilder, private _serviceAPI: ServiceAPI) {
-    this.formService = this.fb.group({
-      title: [''],
-      position: [''],
-      company: [''],
+  educations = signal<IEducation[]>([]);
+  constructor(private fb: FormBuilder, private _educationAPI: EducationAPI) {
+    this.formEducation = this.fb.group({
+      name: [''],
+      degree: [''],
       description: [''],
       from: [''],
       to: ['']
@@ -32,23 +33,49 @@ export class Education {
   }
 
   save() {
-    if (this.formService.valid) {
+    if (this.formEducation.valid) {
       const payload = {
-        ...this.formService.value,
-        from: new Date(this.formService.value.from).toISOString(),
-        to: new Date(this.formService.value.to).toISOString()
+        ...this.formEducation.value,
+        from: new Date(this.formEducation.value.from).toISOString(),
+        to: new Date(this.formEducation.value.to).toISOString()
       };
 
-      this._serviceAPI.createService(payload).subscribe({
+      this._educationAPI.createEducation(payload).subscribe({
         next: (res) => {
           console.log('✅ Created successfully:', res);
           this.closePopup();
-          this.formService.reset();
+          this.formEducation.reset();
+        this.educations.update(list => [...list, res.result]);
+
         },
         error: (err) => {
           console.error('❌ Error creating:', err);
         }
       });
     }
+  }
+    ngOnInit() {
+    this.loadEducations();
+  }
+
+  loadEducations() {
+    this._educationAPI.getAllEducations().subscribe({
+      next: (res) => {
+        this.educations.set(res.result ); 
+      },
+      error: (err) => {
+        console.error('❌ Error loading educations:', err);
+      }
+    });
+  }  deleteEducation(id: number) {
+    this._educationAPI.deleteEducation(id).subscribe({
+      next: () => {
+        this.educations.update(list => list.filter(e => e.id !== id));
+        console.log('🗑️ Deleted successfully');
+      },
+      error: (err) => {
+        console.error('❌ Error deleting:', err);
+      }
+    });
   }
 }
