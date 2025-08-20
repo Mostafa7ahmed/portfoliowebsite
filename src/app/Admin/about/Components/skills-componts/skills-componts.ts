@@ -5,6 +5,7 @@ import { ServiceAPI } from '../../../../core/service/service-api';
 import { SkillAPI } from '../../../../core/service/skill-api';
 import { ICreateSkills } from '../../../../core/interface/icreate-skills';
 import { environment } from '../../../../env/environment';
+import { Stream } from '../../../../core/service/stream';
 @Component({
   selector: 'app-skills-componts',
   imports: [CommonModule, ReactiveFormsModule],
@@ -14,14 +15,15 @@ import { environment } from '../../../../env/environment';
 export class SkillsComponts {
   formService: FormGroup;
   isOpen = false;
-  previewUrl: string | null = null;
+  previewUrl = signal<string | null>(null);
   selectedFile: File | null = null;
   skills = signal<ICreateSkills[]>([]);
   baseurlFile = environment.baseUrlFiles;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder, private _skillServive: SkillAPI) {
+  constructor(private fb: FormBuilder, private _skillServive: SkillAPI ,     private uploadService: Stream
+  ) {
     this.formService = this.fb.group({
       name: [''],
       photoUrl: [''],
@@ -45,15 +47,15 @@ export class SkillsComponts {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result as string;
-        this.formService.patchValue({ photoUrl: this.previewUrl });
-      };
-      reader.readAsDataURL(file);
+   const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const file = input.files[0];
+      this.uploadService.uploadImage(file).subscribe((res: any) => {
+        if (res.success) {
+          this.formService.patchValue({ photoUrl: res.result.url });
+          this.previewUrl.set(res.result.url); 
+        }
+      });
     }
   }
 
@@ -66,8 +68,13 @@ export class SkillsComponts {
           console.log('✅ Created successfully:', res);
           this.closePopup();
           this.skills.update((list) => [...list, res.result]);
-          this.formService.reset({ tech: false });
-          this.previewUrl = null;
+          this.formService.reset({
+            name: '',
+            photoUrl: '',
+            tech: false
+          });
+          
+          this.previewUrl.set( null );
           this.selectedFile = null;
         },
         error: (err) => {
