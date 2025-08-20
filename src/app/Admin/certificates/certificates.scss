@@ -1,0 +1,121 @@
+.iconDelete{
+    background-color: var(--vegas-gold);
+    padding: 4px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 88888888888888888 !important;
+ 
+}
+
+.icon-eye{
+        left: 15px !important;
+        width: 30px;
+
+}
+.headerText{
+    gap: 380px;
+}
+.btn{
+    background-color: var(--vegas-gold);
+    color: var(--white-1);
+    margin-top: 10px;
+}
+.preview-img {
+    width: 100%;
+    max-height: 150px !important;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.tags-section {
+  margin-top: 20px;
+      height: 160px;
+    overflow: scroll;
+    scrollbar-width: none;
+
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: var(--fs-4);
+    font-weight: var(--fw-500);
+    background: var(--text-gradient-yellow);
+
+  }
+
+  .tag-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background: var(--bg-gradient-onyx);
+    padding: 6px 10px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-2);
+
+    input {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--jet);
+      background: var(--bg-gradient-jet);
+      color: var(--white-1);
+      font-family: var(--ff-poppins);
+      font-size: var(--fs-5);
+      transition: var(--transition-1);
+
+      &:focus {
+        border: 1px solid var(--orange-yellow-crayola);
+        outline: none;
+        box-shadow: 0 0 8px var(--orange-yellow-crayola);
+      }
+    }
+
+    .remove-btn {
+      margin-left: 8px;
+      background: var(--bittersweet-shimmer);
+      border: none;
+      color: var(--white-1);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-1);
+      box-shadow: var(--shadow-1);
+
+      &:hover {
+        background: #e63946;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .add-btn {
+    background: var(--orange-yellow-crayola);
+    color: var(--black);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: var(--fw-500);
+    font-family: var(--ff-poppins);
+    font-size: var(--fs-5);
+    transition: var(--transition-1);
+    box-shadow: var(--shadow-2);
+
+    &:hover {
+      background: var(--vegas-gold);
+      transform: translateY(-2px);
+    }
+  }
+}

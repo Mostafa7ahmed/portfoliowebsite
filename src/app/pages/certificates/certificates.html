@@ -3,23 +3,29 @@
     <h2 class="h2 article-title">Certificates</h2>
   </header>
 
-  <section class="blog-posts">
+    <section class="blog-posts">
     <ul class="blog-posts-list">
-      <li class="blog-post-item" *ngFor="let cert of certificates">
-        <a [href]="cert.link" target="_blank">
+      <li class="blog-post-item" *ngFor="let cert of certificates()">
+        <a >
           <figure class="blog-banner-box">
-            <img [src]="cert.image" [alt]="cert.title" loading="lazy">
+            <img [src]="baseurlFile + cert.photoUrl" [alt]="cert.title" loading="lazy">
           </figure>
+          
           <div class="blog-content">
-            <div class="blog-meta">
-              <p class="blog-category">{{ cert.category }}</p>
-              <span class="dot"></span>
-              <time>{{ cert.date }}</time>
+            <div class="blog-meta justify-content-between">
+              <p class="blog-category m-0">{{ cert.organization }}</p>
+              <time class="d-flex align-items-center gap-2">
+                <span class="dot"></span>
+                {{ cert.createdOn | date }}
+              </time>
             </div>
             <h3 class="h3 blog-item-title">{{ cert.title }}</h3>
             <p class="blog-text">{{ cert.description }}</p>
           </div>
+           
+    
         </a>
+ 
       </li>
     </ul>
   </section>

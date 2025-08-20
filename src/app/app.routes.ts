@@ -52,12 +52,12 @@ export const routes: Routes = [
       {
         path: 'Blog',
         loadComponent: () =>
-          import('./pages/certificates/certificates').then((m) => m.Certificates),
+          import('./Admin/certificates/certificates').then((m) => m.Certificates),
       },
       {
         path: 'certificates',
         loadComponent: () =>
-          import('./pages/certificates/certificates').then((m) => m.Certificates),
+          import('./Admin/certificates/certificates').then((m) => m.Certificates),
       },
       {
         path: 'contact',

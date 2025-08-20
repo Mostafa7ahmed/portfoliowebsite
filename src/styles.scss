@@ -1169,8 +1169,9 @@ main {
 
 .project-img img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+height: 240px; 
+
+object-fit: cover;
   transition: var(--transition-1);
 }
 
@@ -1199,11 +1200,14 @@ main {
 
 .gruop {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
   gap: 10px;
   margin-top: 10px;
   padding: 10px;
+  width: 430px;
+  scrollbar-width: none;
+  overflow: scroll;
 }
 
 .type {

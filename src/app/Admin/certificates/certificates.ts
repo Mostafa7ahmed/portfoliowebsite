@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect, ElementRef, signal, ViewChild } from '@angular/core';
+import { Iporject } from '../../core/interface/iporject';
+import { environment } from '../../env/environment';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { PorjectAPI } from '../../core/service/porject-api';
+import { Stream } from '../../core/service/stream';
+import { CertificateAPI } from '../../core/service/certificate-api';
 interface Certificate {
   title: string;
   category: string;
@@ -10,91 +16,119 @@ interface Certificate {
 }
 @Component({
   selector: 'app-certificates',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './certificates.html',
   styleUrl: './certificates.scss'
 })
 export class Certificates {
-  certificates: Certificate[] = [
-    {
-      title: 'Frontend Department Manager',
-      category: 'Sintac Code',
-      link: 'https://drive.google.com/file/d/16CHieUi4AHaM9576pxGcaW-I-3ezOzyV/view?usp=sharing',
-      image: 'images/sintac Code.png',
-      date: 'Aug 23, 2023',
-      description: 'Congratulations on your promotion to Frontend Department Manager!'
-    },
-    {
-      title: 'Introduction to Front-End Development',
-      category: 'Coursera',
-      link: 'https://drive.google.com/file/d/1V2UigVIdeamqyhy-5-XC5rxPzk-cbiNi/view?usp=sharing',
-      image: 'images/coursea 1.png',
-      date: 'Feb 25, 2024',
-      description: 'Coursera certifies successful completion of Introduction to Front-End Development.'
-    },
-    {
-      title: 'Developing Front-End Apps with React',
-      category: 'Coursera',
-      link: 'https://drive.google.com/file/d/1ulY8YMz9P6vdc3hJwV_C-N47f_LMbved/view?usp=sharing',
-      image: 'images/coursea 2.png',
-      date: 'Apr 7, 2024',
-      description: 'Coursera certifies successful completion of Developing Front-End Apps with React.'
-    },
-    {
-      title: 'Fundamentals Of Frontend',
-      category: 'Google Developer Student',
-      link: 'https://drive.google.com/file/d/1qjHP7RCT916iUHQbnwEwS7hm_pflPfi_/view?usp=sharing',
-      image: 'images/Google.png',
-      date: 'Sep 10, 2023',
-      description: 'Successful graduate of the Fundamentals of Frontend program.'
-    },
-    {
-      title: 'Started with ReactJS Components',
-      category: 'simplilearn',
-      link: 'https://drive.google.com/file/d/1ezke6xcoEsIC3EohaMdufdLFpVGQCDlm/view?usp=sharing',
-      image: 'images/simple.png',
-      date: 'Apr 08, 2024',
-      description: 'Completed the Getting Started with ReactJS Components course.'
-    },
-    {
-      title: 'ReactJS for Beginners',
-      category: 'simplilearn',
-      link: 'https://drive.google.com/file/d/1vZtucmfS6D4FKowkZbyqSk-UYl9tHUhi/view?usp=sharing',
-      image: 'images/simple 2.png',
-      date: 'Apr 08, 2024',
-      description: 'Successfully completed ReactJS for Beginners course.'
-    },
-    {
-      title: 'The forgotten art of spacing',
-      category: 'Ma3aref',
-      link: 'https://drive.google.com/file/d/1IBhe0nQKa8SbRtahINN61CWgHPSDOCdL/view?usp=sharing',
-      image: 'images/ma3rfa.png',
-      date: 'May 16, 2023',
-      description: 'Ma3aref Platform Certificate completion.'
-    },
-    {
-      title: 'React JS Tutorial',
-      category: 'Great Learning',
-      link: 'https://drive.google.com/file/d/1FO3RLMRYReG6lIvkW7CGORzZjxF0tn6k/view?usp=sharing',
-      image: 'images/creat learn.png',
-      date: 'Apr 12, 2024',
-      description: 'Successfully completed React JS Tutorial.'
-    },
-    {
-      title: 'React JS',
-      category: 'Maharatech ITI',
-      link: 'https://drive.google.com/file/d/1nC0jVZO7ZuGVLUk7vBOOd3Idm7HV-GJa/view?usp=sharing',
-      image: 'images/react iti .png',
-      date: 'Apr 15, 2024',
-      description: 'Completed React JS course at ITI.'
-    },
-    {
-      title: 'HTML & CSS',
-      category: 'Maharatech ITI',
-      link: 'https://drive.google.com/file/d/1dYlVGmS8WLpCT-TtWQgDeQSnlNnUCMBV/view?usp=sharing',
-      image: 'images/ITI 1.png',
-      date: 'Sep 6, 2022',
-      description: 'Completed HTML & CSS course at ITI.'
+certificates = signal<any[]>([]);
+
+
+  isOpen = false;
+  previewUrl = signal<string | null>(null);
+
+  baseurlFile = environment.baseUrlFiles;
+
+  formCertificate: FormGroup;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  constructor(
+    private fb: FormBuilder,
+    private _certificateAPI: CertificateAPI,
+    private uploadService: Stream
+  ) {
+    this.formCertificate = this.fb.group({
+      photoUrl: [''],
+      organization: [''],
+      title: [''],
+      description: [''],
+      createdOn: [new Date().toISOString()] // القيمة الافتراضية للوقت الحالي
+    });
+
+    effect(() => {
+      this.loadCertificates();
+    });
+  }
+
+
+
+
+
+
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const file = input.files[0];
+      this.uploadService.uploadImage(file).subscribe((res: any) => {
+        if (res.success) {
+          this.formCertificate.patchValue({ photoUrl: res.result.url });
+          this.previewUrl.set(res.result.url); 
+        }
+      });
     }
-  ];
+  }
+
+  openPopup() {
+    this.isOpen=  true;
+  }
+
+  closePopup() {
+    this.isOpen =false;
+  }
+
+save() {
+  if (this.formCertificate.valid) {
+    const payload = {
+      ...this.formCertificate.value,
+      createdOn: new Date().toISOString() 
+    };
+    this._certificateAPI.createCertificate(payload).subscribe({
+      next: (res) => {
+        console.log('✅ Certificate created successfully:', res);
+
+        this.certificates.update((list) => [...list, res.result]);
+
+        this.closePopup();
+
+        // reset form
+        this.formCertificate = this.fb.group({
+          photoUrl: [''],
+          organization: [''],
+          title: [''],
+          description: [''],
+          createdOn: [new Date().toISOString()]
+        });
+      },
+      error: (err) => {
+        console.error('❌ Error creating certificate:', err);
+      }
+    });
+  }
+}
+  loadCertificates() {
+    this._certificateAPI.getAllCertificates().subscribe({
+      next: (res) => {
+        this.certificates.set(res.result); 
+      },
+      error: (err) => {
+        console.error('❌ Error fetching Certificates:', err);
+      }
+    });
+  }
+
+  deleteCertificate(id: number) {
+    this._certificateAPI.deleteCertificate(id).subscribe({
+      next: () => {
+        console.log('🗑️ Deleted successfully');
+        this.certificates.update((list) => list.filter((p) => p.id !== id));
+      },
+      error: (err) => {
+        console.error('❌ Error deleting Certificate:', err);
+      }
+    });
+  }
 }

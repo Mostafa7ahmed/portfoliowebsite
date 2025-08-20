@@ -6,20 +6,20 @@
 
   <section class="projects">
     <ul class="project-list">
-      <li class="project-item active" data-filter-item *ngFor="let project of projects">
-        <a [href]="project.url" target="_blank">
+      <li class="project-item active" data-filter-item *ngFor="let project of projects()">
+        <a  target="_blank">
           <figure class="project-img">
-            <div class="project-item-icon-box">
+            <a class="project-item-icon-box" [href]="project.url">
               <i class="fa-regular fa-eye"></i>
-            </div>
-            <img [src]="baseurlFile + project.url" [alt]="project.name" loading="lazy" />
+            </a>
+            <img [src]="baseurlFile + project.photoUrl" [alt]="project.name" loading="lazy" />
           </figure>
           <h3 class="project-title">{{ project.name }}</h3>
           <p class="project-category">{{ project.description }}</p>
           <div class="gruop">
             <span class="type" *ngFor="let type of project.tags">{{ type }}</span>
           </div>
-          <div class="iconDelete icon text-white">
+          <div class="iconDelete icon text-white" (click)="deleteProject(project.id)">
             <i class="fa-regular fa-trash-can"></i>
           </div>
         </a>
@@ -38,8 +38,8 @@
 
     <form class="popup-body" [formGroup]="formProject">
       <div class="upload-box" (click)="triggerFileInput()" [ngClass]="{ 'has-image': previewUrl }">
-        <ng-container *ngIf="previewUrl; else placeholder">
-          <img [src]="baseurlFile + previewUrl" alt="Preview" class="preview-img" />
+        <ng-container *ngIf="previewUrl(); else placeholder">
+          <img [src]="baseurlFile + previewUrl()" alt="Preview" class="preview-img" />
         </ng-container>
         <ng-template #placeholder>
           <div class="d-flex justify-content-center align-items-center gap-3">
@@ -52,8 +52,8 @@
       <label>Name</label>
       <input type="text" formControlName="name" placeholder="Enter Topic Name" />
 
-      <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
-
+      <label>URL</label>
+      <input type="text" formControlName="url" placeholder="Enter Topic Name" />
       <label>Service Description</label>
       <textarea formControlName="description" rows="3" placeholder="Enter Description"></textarea>
 
