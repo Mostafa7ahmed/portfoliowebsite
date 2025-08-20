@@ -22,11 +22,11 @@ export class SkillsComponts {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder, private _skillServive: SkillAPI ,     private uploadService: Stream
+  constructor(private fb: FormBuilder, private _skillServive: SkillAPI , private uploadService: Stream
   ) {
     this.formService = this.fb.group({
       name: [''],
-      photoUrl: [''],
+      photoUrl: ['8/photo/.svg/49136a62-0847-4681-885b-93d47d59bad3.svg'],
       tech: [false]
     });
     effect(()=>{

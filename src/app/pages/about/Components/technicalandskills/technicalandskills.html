@@ -4,10 +4,12 @@
   </header>
 
 
+
 <section class="skills">
   <div class="skills-wrapper">
-    <div class="skill-circle" *ngFor="let skill of techSkills">
-      <img [src]="baseurlFile + skill.photoUrl" [alt]="skill.name" />
+    <div class="content-card d-flex gap-3" *ngFor="let skill of techSkills">
+      <span class="text-white">{{skill.name}}</span>
+        
     </div>
   </div>
 </section>
@@ -17,14 +19,15 @@
 
 <section class="service">
   <header class="d-flex justify-content-between align-items-center">
-    <h2 class="h2 article-title">Technical</h2>
+    <h2 class="h2 article-title">Soft Skills</h2>
   </header>
 
 
 <section class="skills">
   <div class="skills-wrapper">
-    <div class="skill-circle" *ngFor="let skill of normalSkills">
-      <img [src]="baseurlFile + skill.photoUrl" [alt]="skill.name" />
+    <div class="content-card d-flex gap-3" *ngFor="let skill of normalSkills">
+      <span class="text-white">{{skill.name}}</span>
+        
     </div>
   </div>
 </section>
