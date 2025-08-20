@@ -54,11 +54,11 @@
         </div>
       </li>
 
-      <li class="contact-item" *ngIf="data.location">
+      <li class="contact-item" >
         <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
         <div class="contact-info">
           <p class="contact-title">Location</p>
-          <address>{{ data.location }}</address>
+          <address>{{ data.location  ? data.location  : '- - ' }}</address>
         </div>
       </li>
 
