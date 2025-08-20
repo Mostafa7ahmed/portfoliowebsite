@@ -100,6 +100,9 @@ a {
 li {
   list-style: none;
 }
+ul{
+  padding: 0;
+}
 
 img,
 ion-icon,
@@ -525,6 +528,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+  width: 100%;
 }
 
 .navbar-link {
@@ -1498,7 +1502,11 @@ textarea.form-input::-webkit-resizer {
 /**
  * responsive larger than 580px screen
  */
-
+@media (max-width: 580px) {
+  .gruop{
+    width: 300px;
+  }
+}
 @media (min-width: 580px) {
 
   /**
