@@ -1,14 +1,14 @@
-<aside class="sidebar" [class.active]="isSidebarActive" #sidebar>
+<aside class="sidebar" [class.active]="isSidebarActive" *ngIf="profile() as data">
 
   <div class="sidebar-info">
 
     <figure class="avatar-box">
-      <img src="images/myphoto-removebg-preview.png" alt="Richard hanrick" width="80">
+      <img [src]="data.photoUrl" [alt]="data.name" width="80">
     </figure>
 
     <div class="info-content">
-      <h1 class="name" title="mostafa Hamed">Mostafa Hamed</h1>
-      <p class="title">Front-End & UI / UX</p>
+      <h1 class="name" [title]="data.name">{{ data.name }}</h1>
+      <p class="title">{{ data.position }}</p>
     </div>
 
     <button class="info_more-btn" (click)="toggleSidebar()">
@@ -30,7 +30,7 @@
         </div>
         <div class="contact-info">
           <p class="contact-title">Email</p>
-          <a href="mailto:mostafahamed3003@gmail.com" class="contact-link">mostafahamed3003@gmail.com</a>
+          <a [href]="'mailto:' + data.email" class="contact-link">{{ data.email }}</a>
         </div>
       </li>
 
@@ -50,17 +50,15 @@
         </div>
         <div class="contact-info">
           <p class="contact-title">Birthday</p>
-          <time datetime="2003-06-02">Jun , 2, 2003</time>
+          <time datetime="2003-06-02">Jul , 16, 2003</time>
         </div>
       </li>
 
-      <li class="contact-item">
-        <div class="icon-box">
-          <i class="fa-solid fa-location-dot"></i>
-        </div>
+      <li class="contact-item" *ngIf="data.location">
+        <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
         <div class="contact-info">
           <p class="contact-title">Location</p>
-          <address>Tala City, Menoufia, Egypt</address>
+          <address>{{ data.location }}</address>
         </div>
       </li>
 
@@ -69,24 +67,9 @@
     <div class="separator"></div>
 
     <ul class="social-list">
-      <li class="social-item">
-        <a href="https://www.facebook.com/profile.php?id=100009025482597" target="_blank" class="social-link">
-          <i class="fa-brands fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="social-item">
-        <a href="https://www.behance.net/engmostafahamed" target="_blank" class="social-link">
-          <i class="fa-brands fa-behance"></i>
-        </a>
-      </li>
-      <li class="social-item">
-        <a href="https://github.com/Mostafa7ahmed" target="_blank" class="social-link">
-          <i class="fa-brands fa-github"></i>
-        </a>
-      </li>
-      <li class="social-item">
-        <a href="http://www.linkedin.com/in/mostafa-hamed300" target="_blank" class="social-link">
-          <i class="fa-brands fa-linkedin-in"></i>
+      <li class="social-item" *ngFor="let link of data.informationLinks">
+        <a [href]="link.url" target="_blank" class="social-link">
+          <i [class]="'fa-brands fa-' + link.icon"></i>
         </a>
       </li>
     </ul>
